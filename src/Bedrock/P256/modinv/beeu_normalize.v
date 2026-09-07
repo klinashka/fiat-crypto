@@ -1,4 +1,4 @@
-From Coq Require Import BinInt String List InitialRing.
+From Coq Require Import BinInt String List InitialRing ZArith Lia.
 From bedrock2 Require Import BasicC64Semantics WeakestPrecondition ProgramLogic NotationsCustomEntry ZnWords ArrayCasts.
 Import ListNotations ProgramLogic.Coercions SeparationLogic Array Scalars.
 From coqutil Require Import Tactics.Tactics WithBaseName Map.SeparationLogic.
@@ -6,13 +6,10 @@ Require Import bedrock2Examples.full_sub.
 Require Import Util.ZRange.
 Require Import P256.modinv.u320_sub.
 Require Import coqutil.Z.PushPullMod.
-From Coq Require Import Zmod ZArith.
 Local Open Scope string_scope. Local Open Scope Z_scope.
 
 Local Notation eval := (fold_right (fun (a : word) (s : Z) => a + 2^64*s) 0).
 Local Notation array := (array scalar (word.of_Z 8)).
-
-From Coq Require Import ZArith Lia.
 
 #[export] Instance spec_of_beeu_normalize : spec_of "beeu_normalize" :=
     fnspec! "beeu_normalize" (p_y p_m : word) / (y MOD : list word) R,
